@@ -8,6 +8,8 @@ import com.desafio.api.repository.ToolRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class ToolService {
 
@@ -17,6 +19,14 @@ public class ToolService {
     public ToolService(ToolRepository toolRepository, ToolMapper toolMapper) {
         this.toolRepository = toolRepository;
         this.toolMapper = toolMapper;
+    }
+
+    @Transactional(readOnly = true)
+    public List<ToolResponseDTO> getAllTools() {
+        return toolRepository.findAll()
+                .stream()
+                .map(ToolResponseDTO::new)
+                .toList();
     }
 
     @Transactional

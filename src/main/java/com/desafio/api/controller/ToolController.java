@@ -4,13 +4,11 @@ import com.desafio.api.dto.ToolRequestDTO;
 import com.desafio.api.dto.ToolResponseDTO;
 import com.desafio.api.service.ToolService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/tools")
@@ -20,6 +18,11 @@ public class ToolController {
 
     public ToolController(ToolService toolService) {
         this.toolService = toolService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ToolResponseDTO>> getAll() {
+        return ResponseEntity.ok().body(toolService.getAllTools());
     }
 
     @PostMapping
