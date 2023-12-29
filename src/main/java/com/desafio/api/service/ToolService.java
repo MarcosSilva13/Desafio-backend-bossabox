@@ -50,4 +50,12 @@ public class ToolService {
 
         return toolMapper.toToolResponseDTO(toolRepository.save(tool));
     }
+
+    @Transactional
+    public void deleteTool(Long id) {
+        Tool tool = toolRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Ferramenta não encontrada."));
+
+        toolRepository.delete(tool);
+    }
 }

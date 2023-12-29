@@ -42,4 +42,11 @@ public class ToolController {
 
         return ResponseEntity.created(location).body(toolResponse);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        toolService.deleteTool(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }
