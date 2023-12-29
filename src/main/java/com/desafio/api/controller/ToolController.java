@@ -25,6 +25,11 @@ public class ToolController {
         return ResponseEntity.ok().body(toolService.getAllTools());
     }
 
+    @GetMapping("/findByTag")
+    public ResponseEntity<List<ToolResponseDTO>> getByTag(@RequestParam(name = "tag") String tag) {
+        return ResponseEntity.ok().body(toolService.getAllToolsByTag(tag));
+    }
+
     @PostMapping
     public ResponseEntity<ToolResponseDTO> save(@RequestBody ToolRequestDTO requestDTO) {
         ToolResponseDTO toolResponse = toolService.saveTool(requestDTO);
