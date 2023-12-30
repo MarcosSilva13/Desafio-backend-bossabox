@@ -3,6 +3,7 @@ package com.desafio.api.controller;
 import com.desafio.api.dto.ToolRequestDTO;
 import com.desafio.api.dto.ToolResponseDTO;
 import com.desafio.api.service.ToolService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -31,7 +32,7 @@ public class ToolController {
     }
 
     @PostMapping
-    public ResponseEntity<ToolResponseDTO> save(@RequestBody ToolRequestDTO requestDTO) {
+    public ResponseEntity<ToolResponseDTO> save(@RequestBody @Valid ToolRequestDTO requestDTO) {
         ToolResponseDTO toolResponse = toolService.saveTool(requestDTO);
 
         URI location = ServletUriComponentsBuilder
