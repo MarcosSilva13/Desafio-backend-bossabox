@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,11 +53,11 @@ public class ToolController {
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "application/json"))
     })
     @PostMapping
-    public ResponseEntity<ToolResponseDTO> save(@RequestBody @Valid ToolRequestDTO requestDTO) {
+    public ResponseEntity<ToolResponseDTO> save(HttpServletRequest request, @RequestBody @Valid ToolRequestDTO requestDTO) {
         ToolResponseDTO toolResponse = toolService.saveTool(requestDTO);
 
         URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
+                .fromRequest(request)
                 .path("/{id}")
                 .buildAndExpand(toolResponse.id())
                 .toUri();
